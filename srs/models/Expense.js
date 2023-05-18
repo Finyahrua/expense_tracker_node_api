@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../config/database");
+const User = require("./User");
 
 class Expense extends Model {}
 
@@ -17,6 +18,16 @@ Expense.init(
     amount: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "Users",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
     },
   },
   {
